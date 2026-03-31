@@ -79,12 +79,6 @@ Developed a hospital management system using DSA concepts like priority queues a
 
 ---
 
-## 👨‍💻 Author
-
-**Chandransh**
-
----
-
 ## ⭐ Contribution
 
 Feel free to fork this project and enhance it further!
