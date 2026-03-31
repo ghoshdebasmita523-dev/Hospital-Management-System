@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-blue-600 p-4 text-white flex justify-between">
+    <h1 class="text-xl font-bold">Hospital System</h1>
+    <div>
+      <button class="mx-2">Dashboard</button>
+      <button class="mx-2">Patients</button>
+      <button class="mx-2">Appointments</button>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="text-lg">Total Patients</h3>
+        <p class="text-3xl font-bold text-blue-600">120</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="text-lg">Doctors Available</h3>
+        <p class="text-3xl font-bold text-green-600">15</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="text-lg">Appointments Today</h3>
+        <p class="text-3xl font-bold text-red-600">30</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient Form -->
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Register Patient</h2>
+
+    <form class="bg-white p-6 rounded-xl shadow grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Patient Name" class="p-2 border rounded">
+      <input type="number" placeholder="Age" class="p-2 border rounded">
+      <input type="text" placeholder="Disease" class="p-2 border rounded">
+      <select class="p-2 border rounded">
+        <option>Normal</option>
+        <option>Emergency</option>
+      </select>
+      <button class="bg-blue-600 text-white p-2 rounded col-span-2 hover:bg-blue-700">Add Patient</button>
+    </form>
+  </div>
+
+  <!-- Patient List -->
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Patient Queue</h2>
+
+    <table class="w-full bg-white rounded-xl shadow">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Name</th>
+          <th class="p-2">Age</th>
+          <th class="p-2">Disease</th>
+          <th class="p-2">Priority</th>
+        </tr>
+      </thead>
+      <tbody id="patientTable">
+        <tr>
+          <td class="p-2">Alice</td>
+          <td class="p-2">30</td>
+          <td class="p-2">Fever</td>
+          <td class="p-2 text-red-600">Emergency</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.querySelector("form");
+    const table = document.getElementById("patientTable");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const inputs = form.querySelectorAll("input, select");
+      const name = inputs[0].value;
+      const age = inputs[1].value;
+      const disease = inputs[2].value;
+      const priority = inputs[3].value;
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="p-2">${name}</td>
+        <td class="p-2">${age}</td>
+        <td class="p-2">${disease}</td>
+        <td class="p-2 ${priority === 'Emergency' ? 'text-red-600' : 'text-green-600'}">${priority}</td>
+      `;
+
+      if(priority === "Emergency") {
+        table.prepend(row);
+      } else {
+        table.appendChild(row);
+      }
+
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
